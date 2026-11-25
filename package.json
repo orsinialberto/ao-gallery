@@ -1,0 +1,11 @@
+{
+  "name": "ao-gallery",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sito fotografico personale di Alberto Orsini (stile Stampa)",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "preview": "node scripts/preview.mjs",
+    "check": "node scripts/check.mjs"
+  }
+}

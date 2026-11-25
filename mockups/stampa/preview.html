@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Matteo Ferri — Fotografia</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#s02-griglia">Salta al contenuto</a>
+<!-- 01 · Header -->
+<header id="s01-header">
+  <a class="site-name name-link rv" href="preview.html" style="--d:0s">Matteo Ferri</a>
+  <ul class="nav" aria-label="Navigazione principale">
+    <li class="rv" style="--d:.0s"><a href="about.html">Chi sono</a></li>
+    <li class="folder rv" style="--d:.024s"><a href="#progetti" aria-haspopup="true">Progetti</a>
+      <div class="folder-panel" id="progetti"><a href="progetto.html#yoked">Alta Quota</a><a href="progetto.html#red-zone">Zona Rossa</a><a href="progetto.html#louisa">Lia</a><a href="progetto.html#saltwater">Salsedine</a></div></li>
+    <li class="rv" style="--d:.048s"><a href="about.html#contatti">Contatti</a></li>
+    <li class="ico rv" style="--d:.072s"><a href="#" aria-label="Instagram"><svg viewBox="0 0 17 17" aria-hidden="true"><rect x="1.5" y="1.5" width="14" height="14" rx="4"/><circle cx="8.5" cy="8.5" r="3.3"/><circle cx="12.4" cy="4.6" r=".6"/></svg></a></li>
+    <li class="ico rv" style="--d:.096s"><a href="mailto:ciao@example.com" aria-label="Email"><svg viewBox="0 0 17 17" aria-hidden="true"><rect x="1.5" y="3.5" width="14" height="10" rx="1"/><path d="M2 4.5l6.5 5 6.5-5"/></svg></a></li>
+  </ul>
+  <button class="burger" aria-label="Apri menu" aria-expanded="false"><i></i><i></i></button>
+  <nav class="overlay" aria-label="Menu mobile">
+    <div class="pane main"><a href="about.html">Chi sono</a><button class="go">Progetti <svg class="chev" viewBox="0 0 20 40"><path d="M6 6l10 14L6 34"/></svg></button><a href="about.html#contatti">Contatti</a>
+      <div class="soc"><a href="#" aria-label="Instagram"><svg viewBox="0 0 17 17" aria-hidden="true"><rect x="1.5" y="1.5" width="14" height="14" rx="4"/><circle cx="8.5" cy="8.5" r="3.3"/><circle cx="12.4" cy="4.6" r=".6"/></svg></a><a href="mailto:ciao@example.com" aria-label="Email"><svg viewBox="0 0 17 17" aria-hidden="true"><rect x="1.5" y="3.5" width="14" height="10" rx="1"/><path d="M2 4.5l6.5 5 6.5-5"/></svg></a></div></div>
+    <div class="pane sub"><button class="back">‹ Indietro</button><a href="progetto.html#yoked">Alta Quota</a><a href="progetto.html#red-zone">Zona Rossa</a><a href="progetto.html#louisa">Lia</a><a href="progetto.html#saltwater">Salsedine</a></div>
+  </nav>
+</header>
+<main>
+<!-- 02 · Griglia collage -->
+<section id="s02-griglia" class="fluid" aria-label="Progetti">
+  <a class="ph p1 rv" style="--d:0.288s" href="progetto.html#yoked" title="Alta Quota"><img src="images/horses.jpg" alt="Due cavalli in alta montagna"></a>
+  <a class="ph p2 rv" style="--d:0.312s" href="progetto.html#red-zone" title="Zona Rossa"><img src="images/redsky.jpg" alt="Cielo rosso al tramonto con una figura in silhouette"></a>
+  <a class="ph p3 rv" style="--d:0.336s" href="progetto.html#louisa" title="Lia"><img src="images/sunset-beach.jpg" alt="Ritratto in spiaggia al tramonto" loading="lazy"></a>
+  <a class="ph p4 rv" style="--d:0.360s" href="progetto.html#saltwater" title="Salsedine"><img src="images/swimmer.jpg" alt="Nuotatore in acqua blu" loading="lazy"></a>
+  <a class="ph p5 rv" style="--d:0.384s" href="progetto.html#yoked" title="Alta Quota"><img src="images/summit.jpg" alt="Figura contro le nuvole su una cresta" loading="lazy"></a>
+  <a class="ph p6 rv" style="--d:0.408s" href="progetto.html#red-zone" title="Zona Rossa"><img src="images/forest.jpg" alt="Figura nel bosco con ombre di foglie" loading="lazy"></a>
+</section>
+</main>
+<!-- 03 · Footer -->
+<footer id="s03-footer">
+  <form class="signup rv" style="--d:.432s" onsubmit="return false">
+    <label for="em">Iscriviti</label>
+    <div class="row"><input id="em" type="email" placeholder="Indirizzo email" autocomplete="email"><button type="submit">Iscriviti</button></div>
+  </form>
+  <p class="credit rv" style="--d:.504s">© 2026 Matteo Ferri</p>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+/* Stile: stampa — design token. Licenze font: Karla, Space Mono = SIL OFL 1.1 (Google Fonts), file in fonts/ */
+@font-face{font-family:"Karla";font-weight:400;font-display:swap;src:url(fonts/Karla-400.woff2) format("woff2")}
+@font-face{font-family:"Space Mono";font-weight:400;font-display:swap;src:url(fonts/SpaceMono-400.woff2) format("woff2")}
+:root {
+  /* Colore — contrasti AA: ink/bg 15,8 · muted/bg 5,7 · bianco su muted 6,3 · ink/surface 17,4 */
+  --color-bg: #F6F4EF;
+  --color-surface: #FFFFFF;
+  --color-text: #1B1A17;
+  --color-text-muted: #5B6259;
+  --color-on-muted: #FFFFFF;
+  --color-line: rgba(27,26,23,.12);
+  --color-accent: #5B6259; /* nessun accento: il colore sta nelle foto */
+
+  /* Tipografia */
+  --font-display: "Karla", system-ui, sans-serif;
+  --font-body: "Karla", system-ui, sans-serif;
+  --font-ui: "Space Mono", ui-monospace, monospace;
+  --text-xs: 11.68px; --text-sm: 12.544px; --text-base: 16px; --text-lg: 26px; --text-xl: 33px; --text-2xl: 32.08px; --text-3xl: 32.08px; --text-display: 32.08px;
+  --leading-tight: 1.15; --leading-normal: 1.1;
+  --tracking-tight: -.01em; --tracking-wide: .06em;
+
+  /* Spazio e layout (griglia 24 col, gap 11, righe 28,8) */
+  --space-1: 6px; --space-2: 11px; --space-3: 20px; --space-4: 29px; --space-6: 50px; --space-8: 83px; --space-12: 125px; --space-16: 217px; --space-24: 300px;
+  --container-max: 100%;
+  --radius: 0;
+  --gutter: 11px; --margin: 50px; --row: 28.8px; --header-h: 124.875px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(.4,0,.2,1);
+  --duration-fast: .4s; --duration-base: .6s; --reveal: 1.5s;
+}
+@media (max-width:767px){:root{--margin:23px;--row:24px;--header-h:83.78px}}
