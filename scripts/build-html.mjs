@@ -134,7 +134,7 @@ const page = `${head(title, desc, 'x', og)}
 <a class="skip" href="#s02-griglia">Salta al contenuto</a>
 <!-- 01 · Header -->
 <header id="s01-header">
-  <a class="site-name rv" href="./" style="--d:0s">Alberto Orsini</a>
+  <a class="site-name rv" href="https://albertorsini.it/" style="--d:0s">Alberto Orsini</a>
   <ul class="nav" aria-label="Contatti">
     <li class="rv" style="--d:.072s"><a href="https://www.instagram.com/albertorsini/" target="_blank" rel="noopener noreferrer" aria-label="Instagram (si apre in una nuova scheda)"><svg viewBox="0 0 17 17" aria-hidden="true"><rect x="1.5" y="1.5" width="14" height="14" rx="4"/><circle cx="8.5" cy="8.5" r="3.3"/><circle cx="12.4" cy="4.6" r=".6"/></svg></a></li>
     <li class="rv" style="--d:.096s"><a href="mailto:orsini.alberto@hotmail.it" aria-label="Scrivimi una email"><svg viewBox="0 0 17 17" aria-hidden="true"><rect x="1.5" y="3.5" width="14" height="10" rx="1"/><path d="M2 4.5l6.5 5 6.5-5"/></svg></a></li>
@@ -150,6 +150,7 @@ ${html}</section>
 <footer id="s03-footer">
   <p class="credit rv" style="--d:.432s">© 2026 Alberto Orsini</p>
 </footer>
+<button id="to-top" class="to-top" type="button" aria-label="Torna in alto" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
 <script src="script.js" defer></script>
 </body>
 </html>
@@ -163,7 +164,7 @@ await writeFile(root + 'site/style.css', css.replace(/\/\*GRID\*\/[\s\S]*?\/\*EN
 const notFound = `${head('Pagina non trovata — Alberto Orsini', 'Pagina non trovata.', '')}
 <body>
 <header id="s01-header">
-  <a class="site-name rv" href="/" style="--d:0s">Alberto Orsini</a>
+  <a class="site-name rv" href="https://albertorsini.it/" style="--d:0s">Alberto Orsini</a>
 </header>
 <main class="nf">
   <h1 class="rv" style="--d:.2s">Pagina non trovata</h1>

@@ -40,6 +40,9 @@ for (const file of await walk(site)) {
     if (!(await exists(path))) errors.push(`Link/asset non risolvibile: ${url} in ${file.replace(root, '')}`);
   }
   if (!/<html lang="it"/.test(html)) errors.push(`lang="it" mancante in ${file.replace(root, '')}`);
+  // il nome in alto porta all'hub; nella pagina con le foto c'è la freccia per tornare in cima (visibile solo con JS)
+  if (!html.includes('<a class="site-name rv" href="https://albertorsini.it/"')) errors.push(`Il nome non porta all'hub in ${file.replace(root, '')}`);
+  if (html.includes('id="s02-griglia"') && !/<button id="to-top"[^>]*aria-label="Torna in alto"[^>]*\shidden>/.test(html)) errors.push(`Freccia "torna in alto" mancante in ${file.replace(root, '')}`);
   for (const [tag] of html.matchAll(/<img\b[^>]*>/g))
     if (!/ alt="[^"]+"/.test(tag) || !/ width="\d+"/.test(tag) || !/ height="\d+"/.test(tag)) errors.push(`img senza alt/width/height: ${tag.slice(0, 80)}`);
 }

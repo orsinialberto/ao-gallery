@@ -187,3 +187,20 @@
     e.preventDefault(); open(n, e.currentTarget);
   }));
 })();
+
+/* Torna in alto: la freccia compare oltre poco più di metà della prima schermata. */
+(() => {
+  const button = document.getElementById('to-top');
+  if (!button) return;
+  const calm = matchMedia('(prefers-reduced-motion:reduce)');
+  const sync = () => button.classList.toggle('show', scrollY > innerHeight * 0.6);
+  button.hidden = false;
+  addEventListener('scroll', sync, { passive: true });
+  addEventListener('resize', sync);
+  button.addEventListener('click', (e) => {
+    scrollTo({ top: 0, behavior: calm.matches ? 'instant' : 'smooth' });
+    // da tastiera il focus torna in cima, invece di perdersi quando la freccia sparisce
+    if (e.detail === 0) document.querySelector('.site-name').focus({ preventScroll: true });
+  });
+  sync();
+})();

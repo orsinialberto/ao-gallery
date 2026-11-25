@@ -161,6 +161,13 @@ main{padding-top:var(--header-h)}
   .lb-thumb .lb-m{transform:translateY(calc(var(--th) + var(--pad)*2 + var(--bump)))}
 }
 
+/* 04b · Torna in alto: compare dopo un po' di scorrimento; sotto il visore (z 40) */
+.to-top{position:fixed;right:var(--margin);bottom:calc(20px + env(safe-area-inset-bottom));z-index:30;width:44px;height:44px;padding:0;
+  display:grid;place-items:center;border:1px solid rgba(27,26,23,.18);border-radius:50%;background:var(--color-bg);color:var(--color-text);cursor:pointer;
+  opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease}
+.to-top.show{opacity:1;visibility:visible}
+.to-top svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.2}
+
 /* 05 · Pagina 404 */
 .nf h1{font:400 32.08px/36.96px var(--font-display);letter-spacing:-.01em;padding:0 var(--margin) 29px}
 .nf p{padding:0 var(--margin);color:var(--color-text-muted)}
@@ -178,5 +185,5 @@ main{padding-top:var(--header-h)}
 
 @media (prefers-reduced-motion:reduce){
   .rv{animation:none;opacity:1}
-  .lb,.lb-focus,.lb-thumb .lb-m{transition:none}
+  .lb,.lb-focus,.lb-thumb .lb-m,.to-top{transition:none}
 }
