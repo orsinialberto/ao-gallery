@@ -117,7 +117,7 @@
 
   const frame = (t) => {
     const dt = Math.min(64, t - last || 16.7); last = t;
-    const r = rm.matches, k = r ? 1 : fast ? 0.12 : 0.03, f = dt / 16.667;
+    const r = rm.matches, k = r ? 1 : (fast || touching) ? 0.12 : 0.03, f = dt / 16.667;
     cur += (target - cur) * (1 - Math.pow(1 - k, f));
     if (Math.abs(target - cur) < 0.05) { cur = target; fast = false; }
     const v = !mq.matches, half = (v ? innerHeight : innerWidth) / 2, range = v ? 220 : 170, amp = v ? 52 : 20; // onda: raggio e spostamento max (px), in scala con le miniature
@@ -159,15 +159,16 @@
     if (e.deltaMode === 1) d *= 16;
     target = clamp(target + d); fast = false;
   }
-  let tx = 0, ty = 0, vel = 0, mom = 0;
-  function onTouchStart(e) { tx = e.touches[0].clientX; ty = e.touches[0].clientY; vel = 0; cancelAnimationFrame(mom); }
+  let tx = 0, ty = 0, vel = 0, mom = 0, touching = false;
+  const GAIN = 2.2; // scorrimento da touch: la fila si muove più del dito (più veloce)
+  function onTouchStart(e) { tx = e.touches[0].clientX; ty = e.touches[0].clientY; vel = 0; touching = true; cancelAnimationFrame(mom); }
   function onTouchMove(e) {
     const x = e.touches[0].clientX, y = e.touches[0].clientY, d = mq.matches ? x - tx : y - ty;
-    e.preventDefault(); target = clamp(target - d); vel = -d; fast = false; tx = x; ty = y;
+    e.preventDefault(); target = clamp(target - d * GAIN); vel = -d * GAIN; fast = false; tx = x; ty = y;
   }
   function onTouchEnd() {
-    if (Math.abs(vel) < 1) return;
-    const step = () => { if (Math.abs(vel) < 0.5) return; target = clamp(target + vel); vel *= 0.95; mom = requestAnimationFrame(step); };
+    if (Math.abs(vel) < 1) { touching = false; return; }
+    const step = () => { if (Math.abs(vel) < 0.5) { touching = false; return; } target = clamp(target + vel); vel *= 0.96; mom = requestAnimationFrame(step); };
     mom = requestAnimationFrame(step);
   }
   function onKey(e) {
