@@ -6,6 +6,11 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const manifest = JSON.parse(await readFile(root + 'images/manifest.json', 'utf8'));
 const SITE = 'https://gallery.albertorsini.it'; // dominio di pubblicazione (sitemap, canonical, Open Graph)
+// Email di contatto (link mailto del sito): non è scritta nello script. Si legge da SITE_EMAIL
+// oppure, se la variabile manca, dal mailto già presente nel site/index.html generato in precedenza.
+const EMAIL = process.env.SITE_EMAIL
+  || (await readFile(root + 'site/index.html', 'utf8').catch(() => '')).match(/href="mailto:([^"]+)"/)?.[1];
+if (!EMAIL) { console.error('Manca l’email di contatto: imposta SITE_EMAIL oppure ripristina site/index.html'); process.exit(1); }
 
 // ordine del board · alt
 const P = [
@@ -139,7 +144,7 @@ const page = `${head(title, desc, 'x', og)}
   <a class="site-name rv" href="https://albertorsini.it/" style="--d:0s">Alberto Orsini</a>
   <ul class="nav" aria-label="Contatti">
     <li class="rv" style="--d:.072s"><a href="https://www.instagram.com/albertorsini/" target="_blank" rel="noopener noreferrer" aria-label="Instagram (si apre in una nuova scheda)"><svg viewBox="0 0 17 17" aria-hidden="true"><rect x="1.5" y="1.5" width="14" height="14" rx="4"/><circle cx="8.5" cy="8.5" r="3.3"/><circle cx="12.4" cy="4.6" r=".6"/></svg></a></li>
-    <li class="rv" style="--d:.096s"><a href="mailto:orsini.alberto@hotmail.it" aria-label="Scrivimi una email"><svg viewBox="0 0 17 17" aria-hidden="true"><rect x="1.5" y="3.5" width="14" height="10" rx="1"/><path d="M2 4.5l6.5 5 6.5-5"/></svg></a></li>
+    <li class="rv" style="--d:.096s"><a href="mailto:${EMAIL}" aria-label="Scrivimi una email"><svg viewBox="0 0 17 17" aria-hidden="true"><rect x="1.5" y="3.5" width="14" height="10" rx="1"/><path d="M2 4.5l6.5 5 6.5-5"/></svg></a></li>
   </ul>
 </header>
 <main>
