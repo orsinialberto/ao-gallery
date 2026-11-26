@@ -37,6 +37,7 @@ const P = [
   ['IMG_1060', 'Il tempio di Angkor Wat all’alba, con le palme riflesse nell’acqua'],
   ['IMG_8741', 'Surfista con la tavola in spalla su una spiaggia, vista dall’alto'],
   ['IMG_2899', 'Borgo in pietra con una scalinata, sotto un cielo nuvoloso'],
+  ['IMG_2866', 'Arco in pietra e mattoni su una piazzetta di un borgo, con due gatti sul selciato e un portone in legno'],
   ['IMG_0307', 'Insegna luminosa di un caffè di notte, con i motorini parcheggiati davanti'],
   ['IMG_2919', 'Alba sopra le colline avvolte dalla nebbia'],
 ];
@@ -63,7 +64,8 @@ const GROUPS = [ // ritmo della preview: coppia, coppia, singola larga, singola�
   [[26, 6, 14, 0]],
   [[27, 11, 8, 0]],
   [[28, 14, 10, 0], [29, 3, 7, 3]],
-  [[30, 8, 15, 0]],
+  [[30, 10, 10, 0]],
+  [[31, 8, 15, 0]],
 ];
 const D_GAP = 3; // righe vuote tra un gruppo e il successivo (preview: 2–4)
 // Mobile: una foto per volta, a zig-zag: [colonne occupate, sinistra|destra]

@@ -15,7 +15,7 @@ for (const f of ['README.md', 'CREDITS.md', 'site/tokens.css', 'mockups/stampa/D
 // gli originali (images/source/) sono solo locali, non nel repository: il controllo vale solo se la cartella c'è
 if (await exists(join(root, 'images/source'))) {
   const src = (await readdir(join(root, 'images/source'))).filter((f) => /\.jpe?g$/i.test(f));
-  if (src.length !== 30) errors.push(`images/source: attesi 30 JPG, trovati ${src.length}`);
+  if (src.length !== 31) errors.push(`images/source: attesi 31 JPG, trovati ${src.length}`);
 }
 
 const site = join(root, 'site');
