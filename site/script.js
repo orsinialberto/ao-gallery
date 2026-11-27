@@ -103,11 +103,14 @@
     [n - 1, n, n + 1].forEach(fill);
     placeCap();
   };
-  // mobile: la foto (contain) è centrata nella sua area; la didascalia sale fino al suo bordo inferiore
+  // la foto (contain) è centrata nella sua area: la didascalia sale fino al suo bordo inferiore (mobile, iPad e desktop)
   const placeCap = () => {
     if (active < 0) return;
-    const img = figs[active].querySelector('img'), h = focus.clientWidth * img.getAttribute('height') / img.getAttribute('width');
-    cap.style.transform = mq.matches ? `translateY(${-Math.max(0, focus.clientHeight - h) / 2}px)` : '';
+    const img = figs[active].querySelector('img'), fw = focus.clientWidth, fh = focus.clientHeight;
+    const h = Math.min(fh, fw * img.getAttribute('height') / img.getAttribute('width'));
+    cap.style.transform = '';
+    const photoBottom = focus.getBoundingClientRect().top + (fh + h) / 2;
+    cap.style.transform = `translateY(${Math.min(0, photoBottom - cap.getBoundingClientRect().top)}px)`;
   };
 
   // misure: centro di ogni miniatura lungo l'asse di scorrimento (colonna su desktop, fila su mobile)
