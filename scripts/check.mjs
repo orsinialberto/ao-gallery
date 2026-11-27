@@ -1,4 +1,4 @@
-// Check del repository (zero dipendenze): file richiesti, 30 sorgenti, link/asset locali di site/ risolvibili, JS valido.
+// Check del repository (zero dipendenze): file richiesti, 31 sorgenti, link/asset locali di site/ risolvibili, JS valido.
 import { readdir, readFile, stat } from 'node:fs/promises';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';

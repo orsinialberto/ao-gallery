@@ -1,50 +1,51 @@
 // Genera site/index.html e le regole di posizionamento del collage (blocco GRID in site/style.css) da images/manifest.json.
-// Uso: node scripts/build-html.mjs (dopo build-images.mjs)
+// Uso: node scripts/build-html.mjs (dopo build-images.mjs); richiede la variabile d'ambiente CONTACT_EMAIL
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
+
+const EMAIL = process.env.CONTACT_EMAIL; // indirizzo dell'icona "Scrivimi una email"
+if (!EMAIL) { // ci si ferma prima di scrivere qualsiasi file, per non pubblicare un link vuoto
+  console.error('Manca la variabile d’ambiente CONTACT_EMAIL (indirizzo per l’icona email del sito).');
+  process.exit(1);
+}
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const manifest = JSON.parse(await readFile(root + 'images/manifest.json', 'utf8'));
 const SITE = 'https://gallery.albertorsini.it'; // dominio di pubblicazione (sitemap, canonical, Open Graph)
-// Email di contatto (link mailto del sito): non è scritta nello script. Si legge da SITE_EMAIL
-// oppure, se la variabile manca, dal mailto già presente nel site/index.html generato in precedenza.
-const EMAIL = process.env.SITE_EMAIL
-  || (await readFile(root + 'site/index.html', 'utf8').catch(() => '')).match(/href="mailto:([^"]+)"/)?.[1];
-if (!EMAIL) { console.error('Manca l’email di contatto: imposta SITE_EMAIL oppure ripristina site/index.html'); process.exit(1); }
 
-// ordine del board · alt
+// ordine del board · alt · titolo (didascalia del visore; il numero viene dall'ordine)
 const P = [
-  ['DSC01280', 'Barche ormeggiate al tramonto, con il sole sopra le montagne'],
-  ['DSC00122', 'Lampadina a filamento nel buio'],
-  ['DSC00204', 'Fili d’erba con gocce di pioggia'],
-  ['DSC00374', 'Rifugio in legno sul lago alpino'],
-  ['DSC00497', 'Scoiattolo su un tronco tagliato'],
-  ['DSC00581', 'Rifugio di montagna con cappella, valle e ghiacciaio'],
-  ['DSC00757', 'Risaie a terrazze gialle con una persona'],
-  ['DSC00831', 'Baia con rocce calcaree e una barchetta con un uomo dal cappello conico'],
-  ['DSC01009', 'Mano con unghie decorate su un’impugnatura'],
-  ['DSC01131', 'Prua di barca con bandiera rossa e riflessi dorati'],
-  ['DSC01134', 'Pila di noci di cocco'],
-  ['DSC01139', 'Ninfee in bianco e nero con i fiori rosa a colori'],
-  ['DSC01167', 'Veduta dall’alto di un laghetto con passerelle di legno'],
-  ['DSC01176', 'Cima rocciosa con una pagoda e una scalinata'],
-  ['DSC01186', 'Fiume tra montagne verdi visto dall’alto'],
-  ['DSC01204', 'Fiori viola davanti a un mulino bianco'],
-  ['DSC01251', 'Capra che attraversa un viale con un motorino e un tempietto'],
-  ['DSC01262', 'Barcaiolo con cappello conico, di spalle, sulle barche'],
-  ['DSC01371', 'Testa di drago in mosaico di ceramica'],
-  ['DSC01590', 'Due lanterne gialle accese al buio'],
-  ['DSC01971', 'Canale con palme e un cappello conico in primo piano'],
-  ['IMG_5561', 'Tramonto sulla spiaggia, con nuvole rosate che si riflettono sulla sabbia bagnata'],
-  ['IMG_7862', 'Gruppo di cipressi su una collina verde sotto un cielo azzurro'],
-  ['IMG_8727', 'Costa con scogliere e spiaggia sabbiosa, con tre persone in cima al sentiero'],
-  ['IMG_0308', 'Palazzo colorato di notte, all’angolo di una strada'],
-  ['IMG_1060', 'Il tempio di Angkor Wat all’alba, con le palme riflesse nell’acqua'],
-  ['IMG_8741', 'Surfista con la tavola in spalla su una spiaggia, vista dall’alto'],
-  ['IMG_2899', 'Borgo in pietra con una scalinata, sotto un cielo nuvoloso'],
-  ['IMG_2866', 'Arco in pietra e mattoni su una piazzetta di un borgo, con due gatti sul selciato e un portone in legno'],
-  ['IMG_0307', 'Insegna luminosa di un caffè di notte, con i motorini parcheggiati davanti'],
-  ['IMG_2919', 'Alba sopra le colline avvolte dalla nebbia'],
+  ['DSC01280', 'Barche ormeggiate al tramonto, con il sole sopra le montagne', 'Tramonto a Tam Coc'],
+  ['DSC00122', 'Lampadina a filamento nel buio', 'Filamento'],
+  ['DSC00204', 'Fili d’erba con gocce di pioggia', 'Dopo la pioggia'],
+  ['DSC00374', 'Rifugio in legno sul lago alpino', 'Malghette'],
+  ['DSC00497', 'Scoiattolo su un tronco tagliato', 'L’inquilino'],
+  ['DSC00581', 'Rifugio di montagna con cappella, valle e ghiacciaio', 'Rifugio Denza'],
+  ['DSC00757', 'Risaie a terrazze gialle con una persona', 'Mu Cang Chai'],
+  ['DSC00831', 'Baia con rocce calcaree e una barchetta con un uomo dal cappello conico', 'Lan Ha Bay'],
+  ['DSC01009', 'Mano con unghie decorate su un’impugnatura', 'La presa'],
+  ['DSC01131', 'Prua di barca con bandiera rossa e riflessi dorati', 'Riflessi d’oro'],
+  ['DSC01134', 'Pila di noci di cocco', 'Raccolto'],
+  ['DSC01139', 'Ninfee in bianco e nero con i fiori rosa a colori', 'Rosa sul grigio'],
+  ['DSC01167', 'Veduta dall’alto di un laghetto con passerelle di legno', 'Sentieri d’acqua'],
+  ['DSC01176', 'Cima rocciosa con una pagoda e una scalinata', 'Mua Cave'],
+  ['DSC01186', 'Fiume tra montagne verdi visto dall’alto', 'La via del fiume'],
+  ['DSC01204', 'Fiori viola davanti a un mulino bianco', 'Il mulino'],
+  ['DSC01251', 'Capra che attraversa un viale con un motorino e un tempietto', 'Precedenza'],
+  ['DSC01262', 'Barcaiolo con cappello conico, di spalle, sulle barche', 'L’attesa'],
+  ['DSC01371', 'Testa di drago in mosaico di ceramica', 'Il guardiano'],
+  ['DSC01590', 'Due lanterne gialle accese al buio', 'Hoi An'],
+  ['DSC01971', 'Canale con palme e un cappello conico in primo piano', 'Nel verde'],
+  ['IMG_5561', 'Tramonto sulla spiaggia, con nuvole rosate che si riflettono sulla sabbia bagnata', 'Cielo in terra'],
+  ['IMG_7862', 'Gruppo di cipressi su una collina verde sotto un cielo azzurro', 'Val d’Orcia'],
+  ['IMG_8727', 'Costa con scogliere e spiaggia sabbiosa, con tre persone in cima al sentiero', 'Fino all’oceano'],
+  ['IMG_0308', 'Palazzo colorato di notte, all’angolo di una strada', 'Luci all’angolo'],
+  ['IMG_1060', 'Il tempio di Angkor Wat all’alba, con le palme riflesse nell’acqua', 'Alba ad Angkor Wat'],
+  ['IMG_8741', 'Surfista con la tavola in spalla su una spiaggia, vista dall’alto', 'L’ultima onda'],
+  ['IMG_2899', 'Borgo in pietra con una scalinata, sotto un cielo nuvoloso', 'Borghi Silenti'],
+  ['IMG_2866', 'Arco in pietra e mattoni su una piazzetta di un borgo, con due gatti sul selciato e un portone in legno', 'Padroni di casa'],
+  ['IMG_0307', 'Insegna luminosa di un caffè di notte, con i motorini parcheggiati davanti', 'Aperto fino a tardi'],
+  ['IMG_2919', 'Alba sopra le colline avvolte dalla nebbia', 'Mare di nebbia'],
 ];
 
 // Layout desktop: gruppi di MASSIMO 2 foto, uno sotto l'altro, sfalsati (come il collage della preview).
@@ -104,7 +105,7 @@ P.forEach(([id, alt], i) => {
   const big = `images/photos/${id}-${m.widths.at(-1)}.jpg`;
   const sizes = `(max-width:767px) ${Math.round(((m2 - m1) / 8) * 100)}vw, ${Math.round(((c2 - c1) / 24) * 100)}vw`;
   const eager = i < 4 || id === 'DSC00497';
-  html += `  <figure class="ph p${n} rv" style="--d:${(0.288 + i * 0.024).toFixed(3)}s"><a href="${big}" aria-label="Ingrandisci: ${alt}"><picture>` +
+  html += `  <figure class="ph p${n} rv" style="--d:${(0.288 + i * 0.024).toFixed(3)}s" data-title="${P[i][2]}"><a href="${big}" aria-label="Ingrandisci: ${alt}"><picture>` +
     `<source type="image/avif" srcset="${set('avif')}" sizes="${sizes}"><source type="image/webp" srcset="${set('webp')}" sizes="${sizes}">` +
     `<img src="${big}" srcset="${set('jpg')}" sizes="${sizes}" width="${m.width}" height="${m.height}" alt="${alt}"` +
     `${eager ? (i === 0 ? ' fetchpriority="high"' : '') : ' loading="lazy"'} decoding="async"></picture></a></figure>\n`;

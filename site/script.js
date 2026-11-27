@@ -57,19 +57,19 @@
   if (!figs.length) return;
   const mq = matchMedia('(max-width:768px)'), rm = matchMedia('(prefers-reduced-motion:reduce)');
   const N = figs.length;
-  let lb, thumbs, focus, items = [], slides = [], pos = [], mid = [], built = false;
+  let lb, thumbs, focus, cap, items = [], slides = [], pos = [], mid = [], built = false;
   let cur = 0, target = 0, min = 0, max = 0, active = -1, raf = 0, last = 0, fast = false, opener = null, introT = 0;
 
   const build = () => {
     built = true;
     lb = document.createElement('div');
     lb.className = 'lb'; lb.tabIndex = -1; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Fotografie');
-    lb.innerHTML = '<button class="lb-x" type="button" aria-label="Chiudi"><i></i><i></i></button><div class="lb-focus"></div><div class="lb-thumbs"></div>';
-    focus = lb.querySelector('.lb-focus'); thumbs = lb.querySelector('.lb-thumbs');
+    lb.innerHTML = '<button class="lb-x" type="button" aria-label="Chiudi"><i></i><i></i></button><div class="lb-focus"></div><p class="lb-cap"></p><div class="lb-thumbs"></div>';
+    focus = lb.querySelector('.lb-focus'); thumbs = lb.querySelector('.lb-thumbs'); cap = lb.querySelector('.lb-cap');
     figs.forEach((f, n) => {
       const src = f.querySelector('picture'), img = src.querySelector('img');
       const s = document.createElement('div'); s.className = 'lb-slide'; focus.append(s); slides.push(s);
-      const t = document.createElement('button'); t.type = 'button'; t.className = 'lb-thumb'; t.setAttribute('aria-label', `Foto ${n + 1} di ${N}: ${img.alt}`);
+      const t = document.createElement('button'); t.type = 'button'; t.className = 'lb-thumb'; t.setAttribute('aria-label', `Foto ${n + 1} di ${N}, ${f.dataset.title}: ${img.alt}`);
       t.style.aspectRatio = `${img.getAttribute('width')} / ${img.getAttribute('height')}`;
       const m = document.createElement('span'); m.className = 'lb-m';
       const p = src.cloneNode(true);
@@ -99,6 +99,7 @@
   const setActive = (n) => {
     if (active >= 0) { slides[active].classList.remove('on'); items[active].classList.remove('is-active'); }
     active = n; slides[n].classList.add('on'); items[n].classList.add('is-active');
+    cap.textContent = `${String(n + 1).padStart(2, '0')} — ${figs[n].dataset.title}`;
     [n - 1, n, n + 1].forEach(fill);
   };
 
