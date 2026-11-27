@@ -117,6 +117,12 @@ main{padding-top:var(--header-h)}
 }
 /*END*/
 
+/* 02b · Reveal allo scroll: le classi le aggiunge script.js, solo alle foto sotto lo schermo (senza JS restano visibili).
+   Si anima il link: transform e opacity del figure servono allo splash. */
+.fluid .ph.reveal-wait,.fluid .ph.reveal-in{overflow:visible;background:none}
+.fluid .ph.reveal-wait a{opacity:0;transform:translateY(24px)}
+.fluid .ph.reveal-in a{transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+
 /* 03 · Footer */
 #s03-footer{margin-top:0;min-height:217px;padding:40px var(--margin) 0;position:relative}
 .credit{position:absolute;left:0;right:0;top:100px;text-align:center;color:var(--color-text-muted)}
@@ -193,4 +199,10 @@ main{padding-top:var(--header-h)}
 @media (prefers-reduced-motion:reduce){
   .rv{animation:none;opacity:1}
   .lb,.lb-focus,.lb-cap,.lb-thumb .lb-m,.to-top{transition:none}
+  .fluid .ph.reveal-wait a{opacity:1;transform:none}
+  .fluid .ph.reveal-in a{transition:none}
+}
+@media print{
+  .fluid .ph.reveal-wait a{opacity:1;transform:none}
+  .fluid .ph.reveal-in a{transition:none}
 }

@@ -205,3 +205,26 @@
   });
   sync();
 })();
+
+/* Reveal allo scroll: le foto sotto lo schermo compaiono, una sola volta, quando ci si arriva e l'immagine è pronta. */
+(() => {
+  const figs = [...document.querySelectorAll('#s02-griglia .ph')];
+  if (!figs.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  const arm = () => {
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const f = e.target, img = f.querySelector('img');
+      io.unobserve(f);
+      img.loading = 'eager';
+      // se l'immagine fallisce o resta appesa (oltre 2,5 s), il riquadro si mostra comunque
+      Promise.race([img.decode().catch(() => {}), new Promise((r) => setTimeout(r, 2500))])
+        .then(() => f.classList.replace('reveal-wait', 'reveal-in'));
+    }), { rootMargin: '0px 0px -12% 0px' });
+    figs.filter((f) => f.getBoundingClientRect().top >= innerHeight).forEach((f) => { f.classList.add('reveal-wait'); io.observe(f); });
+  };
+  // con lo splash si aspetta la fine: prima, nascondere le foto cancellerebbe quelle che volano fuori schermo
+  const root = document.documentElement, busy = () => root.classList.contains('splash') && !root.classList.contains('settled');
+  if (!busy()) return arm();
+  const mo = new MutationObserver(() => { if (!busy()) { mo.disconnect(); arm(); } });
+  mo.observe(root, { attributes: true, attributeFilter: ['class'] });
+})();
