@@ -84,7 +84,7 @@
     lb.addEventListener('touchstart', onTouchStart, { passive: true });
     lb.addEventListener('touchmove', onTouchMove, { passive: false });
     lb.addEventListener('touchend', onTouchEnd, { passive: true });
-    addEventListener('resize', () => { if (lb.classList.contains('open')) measure(); });
+    addEventListener('resize', () => { if (lb.classList.contains('open')) { measure(); placeCap(); } });
     addEventListener('keydown', onKey);
   };
 
@@ -101,6 +101,13 @@
     active = n; slides[n].classList.add('on'); items[n].classList.add('is-active');
     cap.textContent = `${String(n + 1).padStart(2, '0')} — ${figs[n].dataset.title}`;
     [n - 1, n, n + 1].forEach(fill);
+    placeCap();
+  };
+  // mobile: la foto (contain) è centrata nella sua area; la didascalia sale fino al suo bordo inferiore
+  const placeCap = () => {
+    if (active < 0) return;
+    const img = figs[active].querySelector('img'), h = focus.clientWidth * img.getAttribute('height') / img.getAttribute('width');
+    cap.style.transform = mq.matches ? `translateY(${-Math.max(0, focus.clientHeight - h) / 2}px)` : '';
   };
 
   // misure: centro di ogni miniatura lungo l'asse di scorrimento (colonna su desktop, fila su mobile)

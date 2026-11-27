@@ -145,7 +145,7 @@ main{padding-top:var(--header-h)}
   left:calc(var(--pad) + var(--tw) + var(--bump) + var(--pad)*1.5);right:var(--margin);
   opacity:0;transition:opacity .79s var(--cubic) .49s}
 .lb.in .lb-focus{opacity:1}
-/* didascalia "07 — Titolo": centrata sotto la foto grande, entra insieme a lei */
+/* didascalia "07 — Titolo": centrata sotto la foto grande, entra insieme a lei (su mobile script.js la accosta alla foto) */
 .lb-cap{position:absolute;z-index:10;left:calc(var(--pad) + var(--tw) + var(--bump) + var(--pad)*1.5);right:var(--margin);bottom:var(--pad);
   line-height:var(--lh);text-align:center;color:var(--color-text-muted);opacity:0;transition:opacity .79s var(--cubic) .49s}
 .lb.in .lb-cap{opacity:1}
